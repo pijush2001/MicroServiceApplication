@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CouponDto>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coupon Index</title>
+    
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Coupons</h2>
+            <a asp-action="CreateCoupon" class="btn btn-primary">Create New Coupon</a>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Code</th>
+                    <th>Discount (%)</th>
+                    <th>Expiration Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var coupon in Model)
+                {
+                    <tr>
+                        <td>@coupon.CouponId</td>
+                        <td>@coupon.CouponCode</td>
+                        <td>@coupon.DiscountAmount.ToString("c")</td>
+                        <td>@coupon.MinimumAmount.ToString("c")</td>
+                        <td>
+                            <form asp-action="DeleteCouponByID" asp-controller="Coupon" asp-route-id="@coupon.CouponId" method="get" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

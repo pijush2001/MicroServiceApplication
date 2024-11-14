@@ -9,7 +9,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Mango.Services.CouponAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/coupon")]
     [ApiController]
     public class CouponAPIController : ControllerBase
     {
@@ -123,13 +123,42 @@ namespace Mango.Services.CouponAPI.Controllers
             return _responseDto;
         }
         [HttpDelete]
-        [Route("DeleteCoupon/{id:int}")]
+        [Route("DeleteCouponByID/{id}")]
         public ResponseDto Delete(int id)
         {
             try
             {
                 Coupon? coupon = _appDbContext.Coupons.Where(c=>c.CouponId == id).FirstOrDefault();
                 if(coupon != null)
+                {
+                    _appDbContext.Coupons.Remove(coupon);
+                    _responseDto.Result = coupon;
+                    _responseDto.Message = "Deleted";
+                }
+                else
+                {
+                    _responseDto.IsSuccess = false;
+                    _responseDto.Message = "No coupon found";
+                }
+                _appDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _responseDto.IsSuccess = false;
+                _responseDto.Message = ex.Message;
+                //throw new Exception("Connection failed with Coupon DB");
+
+            }
+            return _responseDto;
+        }
+        [HttpDelete]
+        [Route("DeleteCouponByCode/{couponCode}")]
+        public ResponseDto DeleteCouponByCode(string couponCode)
+        {
+            try
+            {
+                Coupon? coupon = _appDbContext.Coupons.Where(c => c.CouponCode == couponCode).FirstOrDefault();
+                if (coupon != null)
                 {
                     _appDbContext.Coupons.Remove(coupon);
                     _responseDto.Result = coupon;
