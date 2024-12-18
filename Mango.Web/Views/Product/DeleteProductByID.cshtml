@@ -1,0 +1,73 @@
+﻿@model ProductDto
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Product</title>
+    <style>
+
+
+        .form-container {
+            background-color: #ffffff; /* White background for form */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            max-width: 600px;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2 class="mb-4">Delete Product</h2>
+            <form asp-action="DeleteProductBy" asp-controller="Product" method="post">
+                <input type="hidden" asp-for="ProductId" />
+                <input type="hidden" asp-for="Name" />
+                <input type="hidden" asp-for="Price" />
+                <input type="hidden" asp-for="Description" />
+                <input type="hidden" asp-for="CategoryName" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Product Name</label>
+                    <input asp-for="Name" class="form-control" disabled />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Price" class="form-label">Price</label>
+                    <input asp-for="Price" class="form-control" type="number" step="0.01" disabled />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <input asp-for="Description" class="form-control" type="text"  disabled />
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="form-label">CategoryName</label>
+                    <input asp-for="CategoryName" class="form-control" type="text"  disabled />
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl" class="form-label">ImageUrl</label>
+                    <input asp-for="ImageUrl" class="form-control" type="text"  disabled />
+
+                </div>
+
+                <button type="submit" class="btn btn-danger mt-3">Delete Product</button>
+                <a asp-action="ProductIndex" asp-controller="Product" class="btn btn-secondary mt-3">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.11/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
+
+

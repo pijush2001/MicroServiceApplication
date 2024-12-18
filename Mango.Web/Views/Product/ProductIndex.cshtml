@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProductDto>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coupon Index</title>
+
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Coupons</h2>
+            <a asp-action="CreateProduct" class="btn btn-primary">Create New Product</a>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price (Rs)</th>
+                    <th>Description</th>
+                    <th>CategoryName</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.ProductId</td>
+                        <td>@product.Name</td>
+                        <td>@product.Price</td>
+                        <td>@product.Description</td>
+                        <td>@product.CategoryName</td>
+                        <td><img src="@product.ImageUrl" alt="Image" style="max-width: 100px; height: auto;" /></td>
+                        
+                        <td>
+                            <form asp-action="DeleteProductByID" asp-controller="Product" asp-route-id="@product.ProductId" method="get" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -2,6 +2,7 @@ using Mango.Services.AuthAPI.Data;
 using Mango.Services.AuthAPI.Models;
 using Mango.Services.AuthAPI.Services;
 using Mango.Services.AuthAPI.Services.IService;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,15 @@ builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+/*builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan  = TimeSpan.FromHours(10);
+                    options.LoginPath = "/Auth/Login";
+                    options.AccessDeniedPath = "/Auth/AccessDenied";
+                });*/
+
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@ using Azure;
 using Mango.Services.CouponAPI.Data;
 using Mango.Services.CouponAPI.Models;
 using Mango.Services.CouponAPI.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -11,6 +12,7 @@ namespace Mango.Services.CouponAPI.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
@@ -82,6 +84,7 @@ namespace Mango.Services.CouponAPI.Controllers
         }
         [HttpPost]
         [Route("CreateANewCoupon")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] CouponDto coupondto)
         {
             try
@@ -103,6 +106,7 @@ namespace Mango.Services.CouponAPI.Controllers
         }
         [HttpPut]
         [Route("UpdateCoupon")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Put([FromBody] CouponDto coupondto)
         {
             try
@@ -124,6 +128,7 @@ namespace Mango.Services.CouponAPI.Controllers
         }
         [HttpDelete]
         [Route("DeleteCouponByID/{id}")]
+        //[Authorize(Roles ="ADMIN")]
         public ResponseDto Delete(int id)
         {
             try
@@ -153,6 +158,7 @@ namespace Mango.Services.CouponAPI.Controllers
         }
         [HttpDelete]
         [Route("DeleteCouponByCode/{couponCode}")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto DeleteCouponByCode(string couponCode)
         {
             try
